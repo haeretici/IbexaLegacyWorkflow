@@ -13,7 +13,7 @@ Use when the user asks to:
 From the repository root:
 
 ```bash
-php CHECK_FEATURES/scripts/check_workflow_hooks.php
+php audit/scripts/check_workflow_hooks.php
 ```
 
 Options:
@@ -23,7 +23,7 @@ Options:
 Save output when reporting back to the user:
 
 ```bash
-php CHECK_FEATURES/scripts/check_workflow_hooks.php --verbose | tee /tmp/workflow-hooks-audit.log
+php audit/scripts/check_workflow_hooks.php --verbose | tee /tmp/workflow-hooks-audit.log
 ```
 
 Exit codes: `0` = pass, `1` = coverage gap, `2` = vendor/Ibexa tree missing.

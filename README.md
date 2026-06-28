@@ -177,16 +177,16 @@ Each type restricts `allowedTriggers` to `content` / `{function}` / `before` onl
 
 Use any `On*AfterWorkflowBundle` as a template for a single operation, or `OneForAllBeforeWorkflowBundle` when you want multiple before hooks in one bundle.
 
-## Verification commands (`CHECK_FEATURES`)
+## Verification commands (`audit`)
 
-Agent-oriented audits live under **[CHECK_FEATURES/](CHECK_FEATURES/)**. Reference `@CHECK_FEATURES` when asking an agent to verify scope coverage.
+Agent-oriented audits live under **[audit/](audit/)**. Reference `@audit` when asking an agent to verify scope coverage.
 
 ```bash
 # Ibexa Repository hooks vs LegacyWorkflowBundle + extension bundles
-php CHECK_FEATURES/scripts/check_workflow_hooks.php --verbose
+php audit/scripts/check_workflow_hooks.php --verbose
 ```
 
-See [CHECK_FEATURES/commands/check-workflow-hooks.md](CHECK_FEATURES/commands/check-workflow-hooks.md) for interpretation and exit codes.
+See [audit/commands/check-workflow-hooks.md](audit/commands/check-workflow-hooks.md) for interpretation and exit codes.
 
 ## Tests
 
@@ -204,7 +204,7 @@ cd LegacyWorkflowBundle && php /path/to/phpunit.phar -c phpunit.xml.dist
 | `legacy/` | Original eZ Publish workflow reference |
 | `FirewallBundle/`, `MugoPage/` | Ibexa integration patterns (reference only) |
 | `SUPPORTED.md` | Operation / event mapping and troubleshooting |
-| `CHECK_FEATURES/` | Agent verification commands (workflow hook coverage, deprecation scan) |
+| `audit/` | Agent verification commands (workflow hook coverage, deprecation scan) |
 | `AGENTS.md` | Contributor and agent guide |
 
 ## Links

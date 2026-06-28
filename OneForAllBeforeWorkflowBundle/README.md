@@ -168,10 +168,10 @@ Event types whose identifier starts with `event_haeretici_` are accepted by the 
 For automated cross-checks against Ibexa and `LegacyWorkflowBundle`, run the repository audit:
 
 ```bash
-php CHECK_FEATURES/scripts/check_workflow_hooks.php --verbose
+php audit/scripts/check_workflow_hooks.php --verbose
 ```
 
-See [CHECK_FEATURES/commands/check-workflow-hooks.md](../CHECK_FEATURES/commands/check-workflow-hooks.md).
+See [audit/commands/check-workflow-hooks.md](../audit/commands/check-workflow-hooks.md).
 
 When developing or after installation, you can also confirm the bundle is wired correctly:
 

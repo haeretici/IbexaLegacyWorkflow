@@ -1,8 +1,8 @@
-# CHECK_FEATURES
+# audit
 
 Agent-oriented verification commands for this repository. Each command lives under `commands/` with a runnable script in `scripts/`.
 
-Reference these files with `@CHECK_FEATURES` (or `@CHECK_FEATURES/commands/<name>.md`) when asking an agent to audit the codebase.
+Reference these files with `@audit` (or `@audit/commands/<name>.md`) when asking an agent to audit the codebase.
 
 ## Available commands
 
@@ -14,10 +14,10 @@ Reference these files with `@CHECK_FEATURES` (or `@CHECK_FEATURES/commands/<name
 
 ```bash
 # Human-readable report
-php CHECK_FEATURES/scripts/check_workflow_hooks.php --verbose
+php audit/scripts/check_workflow_hooks.php --verbose
 
 # JSON for tooling
-php CHECK_FEATURES/scripts/check_workflow_hooks.php --json
+php audit/scripts/check_workflow_hooks.php --json
 ```
 
 ## Adding a new check
@@ -28,6 +28,6 @@ php CHECK_FEATURES/scripts/check_workflow_hooks.php --json
 
 ## Design notes
 
-- Scripts resolve paths relative to the repository root (`CHECK_FEATURES/..`).
+- Scripts resolve paths relative to the repository root (`audit/..`).
 - Checks read `vendor/` for Ibexa CMS truth and `LegacyWorkflowBundle/` for project wiring.
 - Exit code `0` means the check passed; non-zero means actionable gaps were found or prerequisites are missing.
