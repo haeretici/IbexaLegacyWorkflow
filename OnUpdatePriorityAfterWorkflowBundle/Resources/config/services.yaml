@@ -1,0 +1,17 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Haeretici\OnUpdatePriorityAfterWorkflowBundle\:
+        resource: '../../*'
+        exclude:
+            - '../../OnUpdatePriorityAfterWorkflowBundle.php'
+
+    Haeretici\OnUpdatePriorityAfterWorkflowBundle\Workflow\Service\OnUpdatePriorityAfterEventTypeLogger:
+        arguments:
+            $logsDir: '%kernel.logs_dir%'
+
+    Haeretici\OnUpdatePriorityAfterWorkflowBundle\Workflow\EventType\OnUpdatePriorityAfterEventType:
+        tags:
+            - { name: haeretici.legacy_workflow.event_type }

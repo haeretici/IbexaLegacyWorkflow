@@ -1,0 +1,104 @@
+{% extends '@ibexadesign/ui/layout.html.twig' %}
+
+{% block title %}Edit workflow{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h1 class="h3 mb-4">Edit workflow: {{ workflow.name }}</h1>
+
+        <form method="post" class="card card-body mb-4">
+            <div class="mb-3">
+                <label class="form-label" for="workflow-name">Name</label>
+                <input class="form-control" id="workflow-name" name="name" value="{{ workflow.name }}" required>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="workflow-enabled" name="is_enabled" value="1" {% if workflow.isEnabled %}checked{% endif %}>
+                <label class="form-check-label" for="workflow-enabled">Enabled</label>
+            </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-primary" name="save_workflow" value="1" type="submit">Save</button>
+                <button class="btn btn-danger" name="delete_workflow" value="1" type="submit" onclick="return confirm('Delete this workflow?');">Delete</button>
+            </div>
+        </form>
+
+        <div class="card card-body mb-4">
+            <h2 class="h5">Events</h2>
+
+            {% if events is not empty %}
+                <form method="post">
+                    <table class="table table-sm align-middle">
+                        <thead>
+                            <tr>
+                                <th>Placement</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>dataText1</th>
+                                <th>dataText2</th>
+                                <th>dataText3</th>
+                                <th>dataText4</th>
+                                <th>dataText5</th>
+                                <th>dataInt1</th>
+                                <th>dataInt2</th>
+                                <th>dataInt3</th>
+                                <th>dataInt4</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for event in events %}
+                                <tr>
+                                    <td>{{ event.placement }}</td>
+                                    <td><code>{{ event.workflowTypeString }}</code></td>
+                                    <td><input class="form-control form-control-sm" name="events[{{ event.id }}][description]" value="{{ event.description }}"></td>
+                                    <td><input class="form-control form-control-sm" name="events[{{ event.id }}][dataText1]" value="{{ event.dataText1 }}"></td>
+                                    <td><input class="form-control form-control-sm" name="events[{{ event.id }}][dataText2]" value="{{ event.dataText2 }}"></td>
+                                    <td><input class="form-control form-control-sm" name="events[{{ event.id }}][dataText3]" value="{{ event.dataText3 }}"></td>
+                                    <td><input class="form-control form-control-sm" name="events[{{ event.id }}][dataText4]" value="{{ event.dataText4 }}"></td>
+                                    <td><input class="form-control form-control-sm" name="events[{{ event.id }}][dataText5]" value="{{ event.dataText5 }}"></td>
+                                    <td><input class="form-control form-control-sm" type="number" name="events[{{ event.id }}][dataInt1]" value="{{ event.dataInt1 }}"></td>
+                                    <td><input class="form-control form-control-sm" type="number" name="events[{{ event.id }}][dataInt2]" value="{{ event.dataInt2 }}"></td>
+                                    <td><input class="form-control form-control-sm" type="number" name="events[{{ event.id }}][dataInt3]" value="{{ event.dataInt3 }}"></td>
+                                    <td><input class="form-control form-control-sm" type="number" name="events[{{ event.id }}][dataInt4]" value="{{ event.dataInt4 }}"></td>
+                                    <td></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary mb-3" name="save_events" value="1" type="submit">Save event configuration</button>
+                </form>
+            {% else %}
+                <p class="text-muted">No events in this workflow.</p>
+            {% endif %}
+
+            <table class="table table-sm">
+                <tbody>
+                    {% for event in events %}
+                        <tr>
+                            <td class="text-end" colspan="13">
+                                <form method="post" class="d-inline">
+                                    <input type="hidden" name="remove_event_id" value="{{ event.id }}">
+                                    <button class="btn btn-sm btn-outline-danger" type="submit">Remove {{ event.workflowTypeString }}</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <form method="post" class="row g-2 align-items-end">
+                <div class="col-md-6">
+                    <label class="form-label" for="event-type">Add event</label>
+                    <select class="form-select" id="event-type" name="event_type" required>
+                        <option value="">Select event type</option>
+                        {% for value, label in event_type_choices %}
+                            <option value="{{ value }}">{{ label }} ({{ value }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-secondary" name="add_event" value="1" type="submit">Add event</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Haeretici\OnDeleteAfterWorkflowBundle\:
+        resource: '../../*'
+        exclude:
+            - '../../OnDeleteAfterWorkflowBundle.php'
+
+    Haeretici\OnDeleteAfterWorkflowBundle\Workflow\Service\OnDeleteAfterEventTypeLogger:
+        arguments:
+            $logsDir: '%kernel.logs_dir%'
+
+    Haeretici\OnDeleteAfterWorkflowBundle\Workflow\EventType\OnDeleteAfterEventType:
+        tags:
+            - { name: haeretici.legacy_workflow.event_type }

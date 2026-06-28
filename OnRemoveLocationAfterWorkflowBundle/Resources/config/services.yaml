@@ -1,0 +1,17 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Haeretici\OnRemoveLocationAfterWorkflowBundle\:
+        resource: '../../*'
+        exclude:
+            - '../../OnRemoveLocationAfterWorkflowBundle.php'
+
+    Haeretici\OnRemoveLocationAfterWorkflowBundle\Workflow\Service\OnRemoveLocationAfterEventTypeLogger:
+        arguments:
+            $logsDir: '%kernel.logs_dir%'
+
+    Haeretici\OnRemoveLocationAfterWorkflowBundle\Workflow\EventType\OnRemoveLocationAfterEventType:
+        tags:
+            - { name: haeretici.legacy_workflow.event_type }

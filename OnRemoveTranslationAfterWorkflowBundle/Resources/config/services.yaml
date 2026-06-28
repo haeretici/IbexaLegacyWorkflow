@@ -1,0 +1,17 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Haeretici\OnRemoveTranslationAfterWorkflowBundle\:
+        resource: '../../*'
+        exclude:
+            - '../../OnRemoveTranslationAfterWorkflowBundle.php'
+
+    Haeretici\OnRemoveTranslationAfterWorkflowBundle\Workflow\Service\OnRemoveTranslationAfterEventTypeLogger:
+        arguments:
+            $logsDir: '%kernel.logs_dir%'
+
+    Haeretici\OnRemoveTranslationAfterWorkflowBundle\Workflow\EventType\OnRemoveTranslationAfterEventType:
+        tags:
+            - { name: haeretici.legacy_workflow.event_type }

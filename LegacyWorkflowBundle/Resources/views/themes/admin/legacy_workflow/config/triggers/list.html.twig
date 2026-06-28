@@ -1,0 +1,47 @@
+{% extends '@ibexadesign/ui/layout.html.twig' %}
+
+{% block title %}Triggers{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h1 class="h3 mb-4">Triggers</h1>
+        <p class="text-muted">Assign workflows to supported operations from <code>workflow.ini</code>. For <code>content_publish</code>, <em>before</em> maps to <code>pre_publish</code> and <em>after</em> maps to <code>post_publish</code>.</p>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Operation</th>
+                    <th>Connect</th>
+                    <th>Module</th>
+                    <th>Function</th>
+                    <th>Workflow</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in trigger_matrix %}
+                    <tr>
+                        <td><code>{{ row.operation }}</code></td>
+                        <td>{{ row.connect_type }}</td>
+                        <td>{{ row.module }}</td>
+                        <td>{{ row.function }}</td>
+                        <td>
+                            <form method="post" class="d-flex gap-2">
+                                <input type="hidden" name="operation" value="{{ row.operation }}">
+                                <input type="hidden" name="connect_type" value="{{ row.connect_type }}">
+                                <select class="form-select form-select-sm" name="workflow_id">
+                                    <option value="0">None</option>
+                                    {% for workflow in workflows %}
+                                        <option value="{{ workflow.id }}" {% if row.workflow_id == workflow.id %}selected{% endif %}>{{ workflow.name }} (#{{ workflow.id }})</option>
+                                    {% endfor %}
+                                </select>
+                                <button class="btn btn-sm btn-primary" type="submit">Save</button>
+                            </form>
+                        </td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

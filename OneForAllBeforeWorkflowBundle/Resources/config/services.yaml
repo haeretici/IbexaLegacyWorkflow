@@ -1,0 +1,61 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Haeretici\OneForAllBeforeWorkflowBundle\:
+        resource: '../../*'
+        exclude:
+            - '../../OneForAllBeforeWorkflowBundle.php'
+
+    Haeretici\OneForAllBeforeWorkflowBundle\Workflow\Service\OneForAllBeforeEventTypeLogger:
+        arguments:
+            $logsDir: '%kernel.logs_dir%'
+
+    Haeretici\OneForAllBeforeWorkflowBundle\Workflow\EventType\OnPublishBeforeEventType:
+        tags:
+            - { name: haeretici.legacy_workflow.event_type }
+
+    Haeretici\OneForAllBeforeWorkflowBundle\Workflow\EventType\OnHideBeforeEventType:
+        tags:
+            - { name: haeretici.legacy_workflow.event_type }
+
+    Haeretici\OneForAllBeforeWorkflowBundle\Workflow\EventType\OnShowBeforeEventType:
+        tags:
+            - { name: haeretici.legacy_workflow.event_type }
+
+    Haeretici\OneForAllBeforeWorkflowBundle\Workflow\EventType\OnDeleteBeforeEventType:
+        tags:
+            - { name: haeretici.legacy_workflow.event_type }
+
+    Haeretici\OneForAllBeforeWorkflowBundle\Workflow\EventType\OnMoveBeforeEventType:
+        tags:
+            - { name: haeretici.legacy_workflow.event_type }
+
+    Haeretici\OneForAllBeforeWorkflowBundle\Workflow\EventType\OnAddLocationBeforeEventType:
+        tags:
+            - { name: haeretici.legacy_workflow.event_type }
+
+    Haeretici\OneForAllBeforeWorkflowBundle\Workflow\EventType\OnRemoveLocationBeforeEventType:
+        tags:
+            - { name: haeretici.legacy_workflow.event_type }
+
+    Haeretici\OneForAllBeforeWorkflowBundle\Workflow\EventType\OnSwapBeforeEventType:
+        tags:
+            - { name: haeretici.legacy_workflow.event_type }
+
+    Haeretici\OneForAllBeforeWorkflowBundle\Workflow\EventType\OnUpdatePriorityBeforeEventType:
+        tags:
+            - { name: haeretici.legacy_workflow.event_type }
+
+    Haeretici\OneForAllBeforeWorkflowBundle\Workflow\EventType\OnRemoveTranslationBeforeEventType:
+        tags:
+            - { name: haeretici.legacy_workflow.event_type }
+
+    Haeretici\OneForAllBeforeWorkflowBundle\Workflow\EventType\OnUpdateObjectStateBeforeEventType:
+        tags:
+            - { name: haeretici.legacy_workflow.event_type }
+
+    Haeretici\OneForAllBeforeWorkflowBundle\Workflow\EventType\OnUpdateSectionBeforeEventType:
+        tags:
+            - { name: haeretici.legacy_workflow.event_type }

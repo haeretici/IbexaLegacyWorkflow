@@ -1,0 +1,16 @@
+{% extends '@ibexadesign/ui/layout.html.twig' %}
+
+{% block title %}Create workflow{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h1 class="h3 mb-4">Create workflow</h1>
+        <form method="post" class="card card-body" style="max-width: 480px;">
+            <div class="mb-3">
+                <label class="form-label" for="workflow-name">Name</label>
+                <input class="form-control" id="workflow-name" name="name" required>
+            </div>
+            <button class="btn btn-primary" type="submit">Create</button>
+        </form>
+    </div>
+{% endblock %}

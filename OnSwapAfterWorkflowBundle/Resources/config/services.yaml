@@ -1,0 +1,17 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Haeretici\OnSwapAfterWorkflowBundle\:
+        resource: '../../*'
+        exclude:
+            - '../../OnSwapAfterWorkflowBundle.php'
+
+    Haeretici\OnSwapAfterWorkflowBundle\Workflow\Service\OnSwapAfterEventTypeLogger:
+        arguments:
+            $logsDir: '%kernel.logs_dir%'
+
+    Haeretici\OnSwapAfterWorkflowBundle\Workflow\EventType\OnSwapAfterEventType:
+        tags:
+            - { name: haeretici.legacy_workflow.event_type }

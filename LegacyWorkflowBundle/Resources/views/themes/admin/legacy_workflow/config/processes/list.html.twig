@@ -1,0 +1,35 @@
+{% extends '@ibexadesign/ui/layout.html.twig' %}
+
+{% block title %}Workflow processes{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h1 class="h3 mb-4">Workflow processes</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Workflow</th>
+                    <th>Content</th>
+                    <th>Version</th>
+                    <th>Status</th>
+                    <th>Modified</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for process in processes %}
+                    <tr>
+                        <td>{{ process.id }}</td>
+                        <td>{{ process.workflow_name }} (#{{ process.workflow_id }})</td>
+                        <td>{{ process.content_id }}</td>
+                        <td>{{ process.content_version }}</td>
+                        <td>{{ process.status }}</td>
+                        <td>{{ process.modified ? process.modified|date('Y-m-d H:i') : '-' }}</td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="6">No active workflow processes.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

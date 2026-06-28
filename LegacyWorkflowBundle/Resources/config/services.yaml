@@ -1,0 +1,110 @@
+parameters:
+    ibexa_legacy_workflow.operation.content_publish: 'content_publish'
+    ibexa_legacy_workflow.event.event_ezapprove: 'event_ezapprove'
+    ibexa_legacy_workflow.event.event_ezwaituntildate: 'event_ezwaituntildate'
+    ibexa_legacy_workflow.event.event_ezmultiplexer: 'event_ezmultiplexer'
+    ibexa_legacy_workflow.event.event_ezfinishuserregister: 'event_ezfinishuserregister'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Haeretici\LegacyWorkflowBundle\:
+        resource: '../../*'
+        exclude:
+            - '../../DependencyInjection/'
+            - '../../LegacyWorkflowBundle.php'
+            - '../../Tests/'
+            - '../../Controller/Admin/'
+
+    Haeretici\LegacyWorkflowBundle\Workflow\Storage\WorkflowStorageInterface:
+        alias: Haeretici\LegacyWorkflowBundle\Workflow\Storage\WorkflowAdminStorageInterface
+
+    Haeretici\LegacyWorkflowBundle\Workflow\Storage\YamlWorkflowStorage:
+        arguments:
+            $storagePath: '%ibexa_legacy_workflow.storage_path%'
+
+    Haeretici\LegacyWorkflowBundle\Workflow\Storage\IbexaSettingWorkflowStorage:
+        arguments:
+            $settingHandler: '@Ibexa\Core\Persistence\Cache\SettingHandler'
+            $settingGroup: '%ibexa_legacy_workflow.setting_group%'
+            $settingIdentifier: '%ibexa_legacy_workflow.setting_identifier%'
+            $yamlMigrationPath: '%ibexa_legacy_workflow.storage_path%'
+
+    Haeretici\LegacyWorkflowBundle\Service\WorkflowIniInspector:
+        arguments:
+            $supportedOperations: '%ibexa_legacy_workflow.available_operations%'
+            $supportedEventTypes: '%ibexa_legacy_workflow.available_event_types%'
+            $workflowIniPath: '%ibexa_legacy_workflow.workflow_ini_path%'
+
+    Haeretici\LegacyWorkflowBundle\Workflow\Service\ContentContextInterface:
+        class: Haeretici\LegacyWorkflowBundle\Workflow\Service\IbexaContentContext
+
+    Haeretici\LegacyWorkflowBundle\Workflow\Service\CurrentUserResolverInterface:
+        class: Haeretici\LegacyWorkflowBundle\Workflow\Service\IbexaCurrentUserResolver
+
+    Haeretici\LegacyWorkflowBundle\Workflow\Service\SubWorkflowExecutor:
+        calls:
+            - setProcessRunner: ['@Haeretici\LegacyWorkflowBundle\Workflow\Service\WorkflowProcessRunner']
+
+    Haeretici\LegacyWorkflowBundle\Workflow\EventType\EzApproveEventType:
+        tags: [{ name: haeretici.legacy_workflow.event_type }]
+
+    Haeretici\LegacyWorkflowBundle\Workflow\EventType\EzWaitUntilDateEventType:
+        tags: [{ name: haeretici.legacy_workflow.event_type }]
+
+    Haeretici\LegacyWorkflowBundle\Workflow\EventType\EzMultiplexerEventType:
+        tags: [{ name: haeretici.legacy_workflow.event_type }]
+
+    Haeretici\LegacyWorkflowBundle\Workflow\EventType\EzFinishUserRegisterEventType:
+        tags: [{ name: haeretici.legacy_workflow.event_type }]
+
+    Haeretici\LegacyWorkflowBundle\EventSubscriber\PublishWorkflowSubscriber:
+        arguments:
+            $enabled: '%ibexa_legacy_workflow.enabled%'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    Haeretici\LegacyWorkflowBundle\EventSubscriber\ContentOperationsWorkflowSubscriber:
+        arguments:
+            $enabled: '%ibexa_legacy_workflow.enabled%'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    Haeretici\LegacyWorkflowBundle\EventListener\MenuListener:
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ibexa_legacy_workflow.trigger_runner:
+        class: Haeretici\LegacyWorkflowBundle\Workflow\Service\TriggerRunner
+        public: true
+    Haeretici\LegacyWorkflowBundle\Workflow\Service\TriggerRunner: '@ibexa_legacy_workflow.trigger_runner'
+
+    Haeretici\LegacyWorkflowBundle\Controller\StatusController:
+        arguments:
+            $adminService: '@Haeretici\LegacyWorkflowBundle\Service\WorkflowAdminService'
+            $availableOperations: '%ibexa_legacy_workflow.available_operations%'
+            $enabled: '%ibexa_legacy_workflow.enabled%'
+        public: true
+
+    Haeretici\LegacyWorkflowBundle\Controller\Admin\WorkflowController:
+        public: true
+        parent: Ibexa\Core\MVC\Symfony\Controller\Controller
+        arguments:
+            - '@Haeretici\LegacyWorkflowBundle\Service\WorkflowAdminService'
+            - '@Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface'
+
+    Haeretici\LegacyWorkflowBundle\Controller\Admin\TriggerController:
+        public: true
+        parent: Ibexa\Core\MVC\Symfony\Controller\Controller
+        arguments:
+            - '@Haeretici\LegacyWorkflowBundle\Service\WorkflowAdminService'
+            - '@Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface'
+
+    Haeretici\LegacyWorkflowBundle\Controller\Admin\ProcessController:
+        public: true
+        parent: Ibexa\Core\MVC\Symfony\Controller\Controller
+        arguments:
+            - '@Haeretici\LegacyWorkflowBundle\Service\WorkflowAdminService'

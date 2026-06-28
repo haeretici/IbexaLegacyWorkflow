@@ -1,0 +1,3 @@
+# Reserved for future Ibexa prepend configuration (templates, policies, etc.).
+# Bundle settings belong in config/packages/ibexa_legacy_workflow.yaml — do not
+# add keys under ibexa.system here unless they exist in Ibexa's Configuration tree.

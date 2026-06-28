@@ -1,0 +1,39 @@
+ibexa_legacy_workflow.status:
+    path: /ibexa_legacy_workflow/status
+    methods: [GET]
+    defaults:
+        _controller: Haeretici\LegacyWorkflowBundle\Controller\StatusController::status
+    options:
+        expose: true
+
+ibexa_legacy_workflow.admin.triggers:
+    path: /ibexa_legacy_workflow/admin/triggers
+    methods: [GET, POST]
+    defaults:
+        _controller: Haeretici\LegacyWorkflowBundle\Controller\Admin\TriggerController::listAction
+
+ibexa_legacy_workflow.admin.workflows:
+    path: /ibexa_legacy_workflow/admin/workflows
+    methods: [GET]
+    defaults:
+        _controller: Haeretici\LegacyWorkflowBundle\Controller\Admin\WorkflowController::listAction
+
+ibexa_legacy_workflow.admin.workflow_create:
+    path: /ibexa_legacy_workflow/admin/workflows/create
+    methods: [GET, POST]
+    defaults:
+        _controller: Haeretici\LegacyWorkflowBundle\Controller\Admin\WorkflowController::createAction
+
+ibexa_legacy_workflow.admin.workflow_edit:
+    path: /ibexa_legacy_workflow/admin/workflows/{workflowId}
+    methods: [GET, POST]
+    requirements:
+        workflowId: '\d+'
+    defaults:
+        _controller: Haeretici\LegacyWorkflowBundle\Controller\Admin\WorkflowController::editAction
+
+ibexa_legacy_workflow.admin.processes:
+    path: /ibexa_legacy_workflow/admin/processes
+    methods: [GET]
+    defaults:
+        _controller: Haeretici\LegacyWorkflowBundle\Controller\Admin\ProcessController::listAction

@@ -1,0 +1,20 @@
+ibexa_legacy_workflow:
+    enabled: true
+    storage_backend: ibexa_setting
+    setting_group: ibexa_legacy_workflow
+    setting_identifier: workflow_data
+    # Used for one-time YAML import when switching backends, and when storage_backend is yaml.
+    storage_path: '%kernel.project_dir%/var/ibexa_legacy_workflow/data.yaml'
+    available_operations:
+        - content_publish
+        - content_hide
+        - content_show
+        - content_delete
+        - content_move
+        - content_addlocation
+        - content_removelocation
+        - content_swap
+        - content_updatepriority
+        - content_removetranslation
+        - content_updateobjectstate
+        - content_updatesection

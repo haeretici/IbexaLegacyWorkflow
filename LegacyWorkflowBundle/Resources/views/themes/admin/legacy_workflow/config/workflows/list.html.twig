@@ -1,0 +1,39 @@
+{% extends '@ibexadesign/ui/layout.html.twig' %}
+
+{% block title %}Workflows{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3 mb-0">Workflows</h1>
+            <a class="btn btn-primary" href="{{ path('ibexa_legacy_workflow.admin.workflow_create') }}">Create workflow</a>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Enabled</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for workflow in workflows %}
+                    <tr>
+                        <td>{{ workflow.id }}</td>
+                        <td>{{ workflow.name }}</td>
+                        <td>{{ workflow.isEnabled ? 'Yes' : 'No' }}</td>
+                        <td>
+                            <a href="{{ path('ibexa_legacy_workflow.admin.workflow_edit', {workflowId: workflow.id}) }}">Edit</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">No workflows defined yet.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

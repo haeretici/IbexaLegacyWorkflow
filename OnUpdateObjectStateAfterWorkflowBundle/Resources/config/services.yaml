@@ -1,0 +1,17 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Haeretici\OnUpdateObjectStateAfterWorkflowBundle\:
+        resource: '../../*'
+        exclude:
+            - '../../OnUpdateObjectStateAfterWorkflowBundle.php'
+
+    Haeretici\OnUpdateObjectStateAfterWorkflowBundle\Workflow\Service\OnUpdateObjectStateAfterEventTypeLogger:
+        arguments:
+            $logsDir: '%kernel.logs_dir%'
+
+    Haeretici\OnUpdateObjectStateAfterWorkflowBundle\Workflow\EventType\OnUpdateObjectStateAfterEventType:
+        tags:
+            - { name: haeretici.legacy_workflow.event_type }
